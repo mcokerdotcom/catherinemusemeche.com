@@ -1,0 +1,348 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
+	<style>
+		* {margin:0;padding:0;box-sizing:border-box;}
+		body {
+			font-family: 'Lora',sans-serif;
+			font-size: calc(.3vw + 1rem);
+			color: #222;
+			padding: 2em 0;
+		}
+		.flex {
+			display: flex;
+		}
+		header {
+			justify-content: space-between;
+			align-items: baseline;
+		}
+		#page {
+			width: 90%;
+			max-width: 1280px;
+			margin: auto;
+		}
+		footer a {
+			display: inline-block;
+			color: #dd000d;
+			padding: .2em 0;
+		}
+		header a {
+			text-decoration: none;
+			color: #7997b7;
+		}
+		.toggle {
+			display: none;
+			width: 40px;
+			height: 30px;
+			position: relative;
+			transform: rotate(0deg);
+			transition: .5s ease-in-out;
+		}
+		.toggle span {
+			display: block;
+			position: absolute;
+			height: 5px;
+			width: 100%;
+			background: #171717;
+			border-radius: 9px;
+			opacity: 1;
+			left: 0;
+			-webkit-transform: rotate(0deg);
+			-moz-transform: rotate(0deg);
+			-o-transform: rotate(0deg);
+			transform: rotate(0deg);
+			-webkit-transition: .25s ease-in-out;
+			-moz-transition: .25s ease-in-out;
+			-o-transition: .25s ease-in-out;
+			transition: .25s ease-in-out;
+		}
+		.toggle span:nth-child(1) {
+			top: 0px;
+		}
+		.toggle span:nth-child(2),.toggle span:nth-child(3) {
+			top: 12px;
+		}
+		.toggle span:nth-child(4) {
+			top: 24px;
+		}
+		.toggle.open span:nth-child(1) {
+			top: 18px;
+			width: 0%;
+			left: 50%;
+		}
+		.toggle.open span:nth-child(2) {
+			transform: rotate(45deg);
+		}
+		.toggle.open span:nth-child(3) {
+			transform: rotate(-45deg);
+		}
+		.toggle.open span:nth-child(4) {
+			top: 18px;
+			width: 0%;
+			left: 50%;
+		}
+		nav a {
+			display: inline-block;
+			padding: 0 0.25em;
+			margin: 0 0.5em;
+			position: relative;
+		}
+		nav a, nav a:after {
+			transition: .25s;
+		}
+		nav:not(.open) a:after {
+			content: '';
+			border-bottom: 2px solid #171717;
+			position: absolute;	
+			bottom: -1px; left: 50%; right: 50%;
+			opacity: 0;
+			z-index: -1;
+		}
+		nav a:hover {
+			color: #111;
+		}
+		nav:not(.open) a:hover:after {
+			left: 0; right: 0;
+			opacity: 1;
+		}
+		header h1 {
+			font-size: 1.75em;
+		}
+		header h1 a {
+			color: #dd000d;
+		}
+		.compact {
+			transition: width .25s;
+			width: 80%;
+			margin: auto;
+		}
+		#main {
+			opacity: 0;
+			transform: translateX(-5%);
+			border-left: 1px solid #ccc;
+			padding-left: 2em;
+			animation: main 1s forwards;
+		}
+		@keyframes main {
+			100% {
+			transform: translateX(0);
+			opacity: 1;
+			}
+		}
+		#main p, #main blockquote, #main ul {
+			margin: 0 0 1.5em;
+			line-height: 1.6;
+		}
+		#main p:first-child {
+			text-indent: 1em;
+		}
+		.framed {
+			padding: 0.5em;
+			border: 1px solid #ccc;
+		}
+		.imageRight {
+			float: right;
+			margin: 0 0 .5em 1em;
+		}
+		.imageLeft {
+			float: left;
+			margin: 0 1em .5em 0;
+			clear: left;
+		}
+		.sep:after {
+			display: block;
+			clear: both;
+			content: '';
+			border-bottom: 1px solid #ccc;
+			margin: 0 auto 3em;
+			position: relative;
+			top: 1.5em;
+			width: 60%;
+		}
+		#main a {
+			color: #dd000d;
+		}
+		header, #main {
+			margin-bottom: 4em;
+		}
+		footer {
+			text-align: center;
+		}
+		footer p {
+			margin: 0 0 0.5em;
+		}
+		footer p:last-child {
+			font-size: 0.8em;
+			font-style: italic;
+			padding: .5em 0 0;
+			color: #555;
+		}
+		h2 {
+			margin: 0 0 1em;
+		}
+		.noMargin {
+			margin: 0;
+		}
+		blockquote h3 {
+			font-size: 1em;
+			font-weight: normal;
+			margin: .5em 0 1em;
+			color: #555;
+		}
+		blockquote {
+			font-style: italic;
+			margin: 0 0 1.5em;
+		}
+		blockquote .sig {
+			padding: .5em 0 0 .5em;
+			font-style: normal;
+			font-size: 0.8em;
+			color: #555;
+		}
+		blockquote .sig:before {
+			content: '--';
+		}
+		.hero {
+			font-size: 1.2em;
+		}
+		.ir {
+			text-indent: 100%;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+		@media (max-width: 1120px) {
+			header {
+				align-items: center;
+			}
+			nav {
+				opacity: 0;
+				display: flex;
+				flex-direction: column;
+				position: absolute;
+				top: 0; left: 0; bottom: 0;
+				transform: translateX(-100%);
+				transition: transform .5s, opacity .25s ease-out;
+				background: #171717;
+				padding: 1em 2em;
+				z-index: 1000;
+				overflow: scroll;
+			}
+			nav a {
+				color: #fff;
+				margin: 0 0 1em;
+				padding: 0 0 1em;
+				text-align: center;
+				display: inline-block;
+				flex-shrink: 0;
+			}
+			nav a:not(:last-child) {
+				border-bottom: 1px solid #ccc;
+			}
+			nav.open {
+				opacity: 1;
+				transform: translateX(0);
+			}
+			.toggle {
+				display: inline-block;
+			}
+			.toggle.open {
+				opacity: 0.5;
+			}
+		}
+		@media (max-width: 800px) {
+			.compact {
+				width: 90%;
+			}
+		}
+		@media (max-width: 640px) {
+			header h1 {
+				max-width: 80%;
+			}
+			#main {
+				border-left: 0;
+				padding-left: 0;
+			}
+			.imageLeft, .imageRight {
+				float: none;
+				margin: 0 auto 1em;
+				display: block;
+			}
+		}
+	</style>
+</head>
+<body>
+
+<div id="page">
+
+	<header class="flex">
+			<h1><a href="/">Catherine Musemeche, M.D.</a></h1>
+			<nav>
+				<a href="/bio">bio</a>
+				<a href="/blog">blog</a>
+				<a href="/events">events</a>
+				<a href="/reviews">reviews</a>
+				<a href="/contact">contact</a>
+			</nav>
+			<a href="#" class="toggle"><span></span><span></span><span></span><span></span></a>
+	</header>
+
+	<div id="main" class="compact sep">
+		<p class="hero sep">As a pediatric surgeon, Catherine Musemeche stares through powerful magnifiers at walnut-sized organs and uses sutures as thin as a hair to resolve matters of life or death. In the forthcoming <em>SMALL: Life and Death on the Front Lines of Pediatric Surgery</em>, she takes us into the operating room where we watch over her shoulder as she works on a range of conditions, from rare congenital malformations and tumors to traumatic injuries. Riveting and inspirational, <em>SMALL</em> describes the perils of taking apart tiny bodies, and the special skill required to ensure everything is put back into place.</p>
+
+		<a href="http://www.amazon.com/Hurt-Inspiring-Untold-Story-Trauma-ebook/dp/B01DWHSKTK/" title="Buy Hurt on Amazon" target="_blank"><img src="http://catherinemusemeche.com/images/hurt_sized.jpg" alt="Hurt: the inspiring, untold story of trauma" class="framed imageLeft"></a>
+		<h2><em>Hurt: the inspiring, untold story of trauma</em></h2>
+		<p><em>Hurt: the inspiring, untold story of trauma</em> explores the topic of injury from the viewpoint of doctors, rescuers,  patients and their families. HURT walks us through the development of today's advanced trauma centers and demonstrates in graphic detail why they are essential in surviving complex injuries.</p>
+		<p class="sep">Hurt is available at <a href="http://www.amazon.com/Hurt-Inspiring-Untold-Story-Trauma-ebook/dp/B01DWHSKTK/" title="Buy Hurt on Amazon" target="_blank">Amazon</a> or <a href="http://www.barnesandnoble.com/w/hurt-catherine-md-musemeche-md/1123544692?ean=9781611687965" title="Buy Hurt on Barnes &amp; Noble" target="_blank">Barnes &amp; Noble</a>.</p>
+
+		<p><a title="Buy SMALL - Life and Death on the Front Lines of Pediatric Surgery by Catherine Musemeche, M.D. on Amazon" href="http://www.amazon.com/Small-Death-Front-Pediatric-Surgery/dp/1611684420" target="_blank"><img class="buy framed imageLeft" src="http://catherinemusemeche.com/images/small_cover_sized.jpg" alt="SMALL - Life and Death on the Front Lines of Pediatric Surgery by Catherine Musemeche, M.D."></a></p>
+		<h2 class="noMargin"><em>SMALL: Life and Death on the Front Lines of Pediatric Surgery</em></h2>
+		<blockquote><h3><em>"Literate, moving, and illuminating, SMALL is a first of its kind look inside the world of a pediatric surgeon."</em></h3></blockquote>
+
+		<p><em>SMALL</em> won the <a href="http://www.writersleague.org/2014BookAwardWinnersFinalists?x=ITZsXl0yRfWdQDg0FS3RYW9pbkNgTpUc">Writer's League of Texas 2015 Nonfiction Discovery Award</a> and is a <a href="http://www.pen.org/blog/longlists-announced-2015-pen-literary-awards">PEN American/E.O. Wilson Literary Science Award Nominee</a>. Read an <a href="files/small_excerpt.pdf">excerpt from the first chapter of <em>SMALL</em></a>.
+		</p>
+
+		<p class="sep"><em>SMALL</em> is available at <a href="http://www.amazon.com/Small-Death-Front-Pediatric-Surgery/dp/1611684420" title="Buy SMALL on Amazon" target="_blank">Amazon</a>, <a href="http://www.barnesandnoble.com/w/small-catherine-musemeche-md/1119314613?ean=9781611684421" title="Buy SMALL on Barnes &amp; Noble" target="_blank">Barnes &amp; Noble</a> or <a href="http://www.indiebound.org/book/9781611684421" title="Buy SMALL on IndieBound" target="_blank">IndieBound</a>.</p>
+
+		<blockquote>"Between the delicate surgeries on tiny patients, brilliant history lessons, and the obvious passion of the author for her work, <em>SMALL</em> is a huge achievment." 
+			<div class="sig">Daniel Menaker, author of the T<em>he Treatment</em>, a novel, and <em>My Mistake: A Memoir</em></div>
+		</blockquote>
+		<blockquote>"Dr. Musemeche has woven together history, personal narrative, and surgical anatomy with the deftness of a master of craft."
+			<div class="sig">Katrina Firlik, MD, author of&nbsp;<em>Another Day in the Frontal Lobe: A Brain Surgeon Exposes Life on the Inside</em></div>
+		</blockquote>
+		<blockquote>"Pediatric surgeons have long been unappreciated, but Kate Musemeche, in her book, <em>SMALL</em>, reveals in vivid, intimate detail, the intensity and the excruciating focus that is required to do their painstaking work."
+			<div class="sig">Lee Gutkind, Editor, <em>Creative Nonfiction</em>, <em>Author of One Children's Place: Inside a Children's Hospital</em></div>
+		</blockquote>
+		<blockquote>"Operating on infants is not as simple as learning how to sew in minature," explains Musemeche in this fascinating, frequently hair-raising account of the state of pediatric surgery. Musemeche has been working in the field for three decades and writes with the kind of drama that feels as visceral as viewing a documentary."
+			<div class="sig">Julia McKinnell<em>, Maclean's</em></div>
+		</blockquote>
+	</div>
+
+	<footer class="compact">
+		<p>&copy; Catherine Musemeche, M.D. All rights reserved.</p>
+		<p>
+			<a href="mailto:drkate@catherinemusemeche.com">DrKate@catherinemusemeche.com</a>
+			<br>
+			<a href="https://twitter.com/drkatem" target="_blank" title="Catherine Musemeche, M.D. on Twitter">@DrKateM</a>
+		</p>
+		<p>This website is for general information only and not intended to constitute medical advice.</p>
+	</footer>
+
+</div>
+
+<script>
+	var toggle = document.querySelectorAll('.toggle');
+	toggle[0].addEventListener('click',function(e) {
+		var nav = document.querySelectorAll('nav');
+		nav[0].classList.toggle('open');
+		toggle[0].classList.toggle('open');
+		e.preventDefault();
+	});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+RewriteEngine on
+RewriteRule ^events$ /\?go=events [NC,L]
+RewriteRule ^links$ /\?go=links [NC,L]
+RewriteRule ^news$ /\?go=news [NC,L]
+RewriteRule ^resources$ /\?go=resources [NC,L]
+RewriteRule ^contact$ /\?go=contact [NC,L]
+RewriteRule ^about$ /\?go=about [NC,L]
+RewriteRule ^blog$ /\?go=blog [NC,L]
+RewriteRule ^blog/([0-9])$ /\?go=blog&page=$1 [NC,L]
+RewriteRule ^([0-9]+)$ /\?go=blog&id=$1 [NC,L]
+RewriteRule ^archives$ /\?go=archives [NC,L]
+RewriteRule ^home$ / [NC,L]

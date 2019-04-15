@@ -230,8 +230,9 @@ blockquote .sig:before {
 .home .hurt h1 {
 	font-size: 2.25em;
 }
-.home .hurt blockquote {
-	font-size: 1.15em;
+.home blockquote {
+	overflow: auto;
+	font-size: 1.15rem;
 }
 #main li h2 {
 	font-size: inherit;

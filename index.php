@@ -66,10 +66,9 @@ tinyMCE.init({
 				<?
 					$navelements = array(
 						'home' => 'Home',
-						'about' => 'About',
-						'blog' => 'Blog',
-						'events' => 'Events',
+						'writing' => 'Writing',
 						'news' => 'News',
+						'about' => 'About',
 						'contact' => 'Contact'
 					);
 					$i = 1;
